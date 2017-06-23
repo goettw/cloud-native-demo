@@ -1,0 +1,41 @@
+pipeline {
+
+    agent any
+
+    tools {
+        maven 'maven3'
+        jdk 'jdk8'
+    }
+
+    stages {
+
+        stage ('init') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
+                sh 'cd reservation-service'
+            }
+        }
+
+
+
+        stage ('compile') {
+            steps {
+                echo '** Compiling source code'
+                sh 'mvn clean compile'
+            }
+        }
+
+  
+        stage ('deploy') {
+            steps {
+                echo '** Deploying to the test environment.'
+                sh 'mvn package  cf:push cf:push -DskipTests -Dcf.target=https://api.bosh-lite.com -Dcf.org=business-innovation  -e -Dcf.space=dev  -Dcf.appname=reservation-service  -s local-settings.xml'
+            }
+        }
+    }
+  
+}
+
