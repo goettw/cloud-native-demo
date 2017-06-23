@@ -32,7 +32,7 @@ pipeline {
         stage ('deploy') {
             steps {
                 echo '** Deploying to the test environment.'
-                sh 'mvn package  cf:push cf:push -DskipTests -Dcf.target=https://api.bosh-lite.com -Dcf.org=business-innovation  -e -Dcf.space=dev  -Dcf.appname=reservation-service  -s local-settings.xml'
+                sh '(cd reservation-service;mvn package  cf:push cf:push -DskipTests -Dcf.target=https://api.bosh-lite.com -Dcf.org=business-innovation  -e -Dcf.space=dev  -Dcf.appname=reservation-service  -s local-settings.xml)'
             }
         }
     }
