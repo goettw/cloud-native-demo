@@ -24,7 +24,7 @@ pipeline {
         stage ('compile') {
             steps {
                 echo '** Compiling source code'
-                sh '(cd reservation-service;mvn clean package)'
+                sh '(cd reservation-service;mvn -DskipTests clean package)'
             }
         }
 
