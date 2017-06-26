@@ -1,0 +1,7 @@
+applications:
+- name: reservation-client
+  memory: 512MB
+  host: reservation-client
+  path: .\target\reservation-client-0.0.1-SNAPSHOT.jar
+  env:
+    spring.profiles.active: cloud
